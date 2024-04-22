@@ -1,0 +1,17 @@
+appId: com.quangtrong.live-wallpaper
+productName: Live wallpaper and cute shortcuts
+copyright: Copyright © 2024 quangtrong1506
+directories:
+    output: dist
+    buildResources: resources
+files:
+    - from: .
+      filter:
+          - package.json
+          - app
+publish: null
+extraResources:
+    - from: "resources/icon/tray.png"
+      to: "tray.png"
+      filter:
+          - "**/*"

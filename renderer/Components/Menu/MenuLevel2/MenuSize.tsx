@@ -6,7 +6,7 @@ import { DATA } from "../../../helpers/data";
 import { sortShortcuts } from "../../../helpers/shortcuts";
 import { setInitShortcut, setIsHidden } from "../../../redux/features/shortcut";
 import { useAppSelector } from "../../../redux/store";
-import RightCheck from "../../Atoms/RightCheck";
+import RightCheck from "../../Icons/RightCheck";
 interface IProps {
     x?: number;
     y?: number;

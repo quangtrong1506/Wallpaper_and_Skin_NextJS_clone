@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { sendMessageToServer } from "../../helpers/helpers";
 import { setPlayVideoBackground } from "../../redux/features/background";
 import { useAppSelector } from "../../redux/store";
-import RightArrow from "../Atoms/RightArrow";
+import RightArrow from "../Icons/RightArrow";
 import MenuSize from "./MenuLevel2/MenuSize";
 
 export default function Menu({ x, y, setIsShowCreateShortcut }: { x: number; y: number; setIsShowCreateShortcut?: (boolean) => void }) {

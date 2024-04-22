@@ -23,7 +23,14 @@ if (isProd) {
     console.log(screens);
     let id = 1;
     for await (const scr of screens) {
-        let win = await BG_WINDOW({ id: id.toString(), name: "background-window-" + id });
+        let win = await BG_WINDOW({
+            id: id.toString(),
+            name: "background-window-" + id,
+            options: {
+                x: scr.bounds.x,
+                y: scr.bounds.y,
+            },
+        });
         WINDOWS.backgrounds.push(win);
         id++;
     }

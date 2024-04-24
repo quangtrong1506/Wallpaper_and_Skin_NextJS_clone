@@ -18,12 +18,12 @@ function ScreenGamePage() {
     return (
         <div className="relative ">
             <div className="overflow-hidden">
-                <video muted autoPlay loop src="/videos/bg-default.mp4"></video>
-                {/* <img src="/images/abc.png" alt="" /> */}
+                {/* <video muted autoPlay loop src="/videos/hk-3.mp4"></video> */}
+                <img src="/images/abc.png" alt="" />
             </div>
             <div className="absolute top-0 left-0"></div>
-            <div className="absolute h-[655px] w-[490px] top-[19vh] right-[1.2vw]" style={{ transform: `scale(${scale})` }}>
-                <div className="relative">
+            <div className="absolute h-[655px] w-[490px] top-[19vh] right-[1.2vw]">
+                <div className="relative" style={{ scale: `${scale}` }}>
                     <div className="absolute -top-2 w-[208px] right-[48px] text-[28px]">
                         <HexagonBig text="Trang Bị" type="valkyrie" />
                     </div>

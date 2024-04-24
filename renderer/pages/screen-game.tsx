@@ -4,7 +4,16 @@ import HexagonBig from "../Components/Game/HexagonBig";
 function ScreenGamePage() {
     const [scale, setScale] = useState(1);
     useEffect(() => {
-        let w = document.body.clientWidth;
+        const reSize = () => {
+            let { clientWidth } = document.body;
+            setScale(clientWidth / 1920);
+            console.log(clientWidth / 1920);
+        };
+        reSize();
+        window.addEventListener("resize", reSize);
+        return () => {
+            window.removeEventListener("resize", reSize);
+        };
     }, []);
     return (
         <div className="relative ">
@@ -13,7 +22,7 @@ function ScreenGamePage() {
                 {/* <img src="/images/abc.png" alt="" /> */}
             </div>
             <div className="absolute top-0 left-0"></div>
-            <div className={`absolute h-[655px] w-[490px] top-[19vh] right-[1.2vw] scale-[${scale}]`}>
+            <div className="absolute h-[655px] w-[490px] top-[19vh] right-[1.2vw]" style={{ transform: `scale(${scale})` }}>
                 <div className="relative">
                     <div className="absolute -top-2 w-[208px] right-[48px] text-[28px]">
                         <HexagonBig text="Trang Bị" type="valkyrie" />

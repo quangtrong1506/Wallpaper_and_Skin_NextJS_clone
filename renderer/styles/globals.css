@@ -6,6 +6,60 @@
     font-family: "Patrick Hand";
     src: url("./PatrickHand-Regular.ttf");
 }
+
+@font-face {
+    font-family: "Noto Sans Medium";
+    src: url("./NotoSans-Medium.ttf");
+}
+
+@font-face {
+    font-family: "Noto Sans Bold";
+    font-weight: bold;
+    src: url("./NotoSans-Bold.ttf");
+}
+@font-face {
+    font-family: "Noto Sans Light";
+    src: url("./NotoSans-Light.ttf");
+}
+
+@font-face {
+    font-family: "Noto Sans Black";
+    src: url("./NotoSans-Black.ttf");
+}
+
+@font-face {
+    font-family: "Noto Sans";
+    src: url("./NotoSans-Thin.ttf");
+}
+@font-face {
+    font-family: "Noto Sans Regular";
+    font-weight: 700;
+    src: url("./NotoSans-Regular.ttf");
+}
+@font-face {
+    font-family: "Noto Sans Bold";
+    font-weight: 600;
+    src: url("./NotoSans-Bold.ttf");
+}
+.noto-sans-regular {
+    font-family: "Noto Sans Regular", sans-serif;
+}
+.noto-sans-black {
+    font-family: "Noto Sans Black", sans-serif;
+}
+.noto-sans-bold {
+    font-family: "Noto Sans Bold", sans-serif;
+}
+.noto-sans-thin {
+    font-family: "Noto Sans Thin", sans-serif;
+}
+.noto-sans-medium {
+    font-family: "Noto Sans Medium", sans-serif;
+}
+.noto-sans-light {
+    font-family: "Noto Sans Light", sans-serif;
+}
+
 body {
     font-family: "Patrick Hand", "sans-serif";
 }
@@ -50,3 +104,10 @@ body {
 .swal2-container {
     z-index: 9999999999999999;
 }
+<<<<<<< HEAD
+=======
+
+.cls-1 {
+    fill-rule: evenodd;
+}
+>>>>>>> e28514af188859ff880cad1870daebacd31a3472

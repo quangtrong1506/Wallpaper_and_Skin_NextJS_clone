@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #00ffea;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #00ffd8;
+        opacity: 0.5;
+      }
+
+      .cls-3 {
+        opacity: 0.25;
+      }
+    </style>
+  </defs>
+  <path id="_3" data-name="3" class="cls-1" d="M37,312H59v43L254.5,467,303,444l12,20-60.5,30L37,367V312ZM418,528"/>
+  <path id="_1" data-name="1" class="cls-2" d="M253.618,0L45,118l1,117H61l1-109L253.618,17,376,84l7-11ZM426,96l40,22V367L356,435l-7-12,103-64,2-235-33-17ZM256,56,37,311"/>
+  <path id="_1-2" data-name="1" class="cls-3" d="M254,49L96,144q-0.5,98.5-1,197l161,92,163-94q-0.5-98.5-1-197Z"/>
+</svg>

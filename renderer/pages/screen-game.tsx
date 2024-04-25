@@ -22,9 +22,15 @@ function ScreenGamePage() {
                 <img src="/images/abc.png" alt="" />
             </div>
             <div className="absolute top-0 left-0"></div>
-            <div className="absolute h-[655px] w-[490px] top-[19vh] right-[1.2vw]">
+            <div
+                className="absolute top-[19vh] right-[1.2vw] "
+                style={{
+                    height: 655 * scale + "px",
+                    width: 490 * scale + "px",
+                }}
+            >
                 <div className="relative" style={{ scale: `${scale}` }}>
-                    <div className="absolute -top-2 w-[208px] right-[48px] text-[28px]">
+                    <div className="absolute -top-2 w-[208px] text-[28px] right-[48px]">
                         <HexagonBig text="Trang Bị" type="valkyrie" />
                     </div>
                     <div className="absolute top-24 w-[208px] right-[210px] text-[26px]">

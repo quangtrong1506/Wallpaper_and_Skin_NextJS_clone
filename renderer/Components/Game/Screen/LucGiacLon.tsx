@@ -1,15 +1,15 @@
 interface _IProps {
     text?: string;
-    type?: "custom" | "valkyrie" | "nguoi" | "box";
+    type?: 'custom' | 'valkyrie' | 'nguoi' | 'box';
     iconCustom?: string;
 }
 
-function HexagonBig({ iconCustom, text, type = "custom" }: _IProps) {
+function LucGiacLon({ iconCustom, text, type = 'custom' }: _IProps) {
     return (
         <div className="relative w-full select-none">
-            <img className="w-full cursor-pointer" src="/images/hexagon-big.png" alt="..." />
+            <img className="w-full cursor-pointer" src="/images/luc-giac-lon.png" alt="..." />
             <div className="absolute top-0 left-0 right-0 bottom-0 flex justify-center ">
-                {type === "valkyrie" && (
+                {type === 'valkyrie' && (
                     <svg className="w-[70%] -mt-3" fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 691 691">
                         <path
                             className="cls-1"
@@ -71,7 +71,7 @@ function HexagonBig({ iconCustom, text, type = "custom" }: _IProps) {
                         />
                     </svg>
                 )}
-                {type === "nguoi" && (
+                {type === 'nguoi' && (
                     <svg className="w-[50%] -mt-7" fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 418 499">
                         <path
                             id="hair"
@@ -101,7 +101,7 @@ function HexagonBig({ iconCustom, text, type = "custom" }: _IProps) {
                     </svg>
                 )}
 
-                {type === "box" && (
+                {type === 'box' && (
                     <svg className="w-[52%] -mt-[12px]" fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 560">
                         <path
                             className="cls-1"
@@ -123,11 +123,11 @@ function HexagonBig({ iconCustom, text, type = "custom" }: _IProps) {
                     </svg>
                 )}
 
-                {type === "custom" && <div className="w-8/12 h-8/12 mt-6" dangerouslySetInnerHTML={{ __html: iconCustom }}></div>}
+                {type === 'custom' && <div className="w-8/12 h-8/12 mt-6" dangerouslySetInnerHTML={{ __html: iconCustom }}></div>}
             </div>
             <div
                 className="noto-sans-bold text-center absolute bottom-[14%] font-bold text-white w-full text cursor-default text-nowrap"
-                style={{ textShadow: "1px 1px  black" }}
+                style={{ textShadow: '1px 1px  black' }}
             >
                 {text}
             </div>
@@ -135,4 +135,4 @@ function HexagonBig({ iconCustom, text, type = "custom" }: _IProps) {
     );
 }
 
-export default HexagonBig;
+export default LucGiacLon;

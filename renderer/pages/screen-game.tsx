@@ -37,13 +37,10 @@ function ScreenGamePage() {
             </div>
             <div className="absolute top-0 left-0"></div>
             <div
-                className="absolute"
+                className="absolute top-[19vh] right-[1.2vw] "
                 style={{
-                    width: 490 * scale + 'px',
                     height: 655 * scale + 'px',
-                    top: 19.1 * scale + 'vh',
-                    right: 1.2 * scale + 'vw',
-                    transform: `translateX(${((1 - scale) * 490 * scale) / 2.18}px) translateY(-${((1 - scale) * 655 * scale) / 4.95}px) `,
+                    width: 490 * scale + 'px',
                 }}
             >
                 <div className="relative w-full h-full" style={{ scale: `${scale}` }}>

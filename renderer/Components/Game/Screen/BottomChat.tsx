@@ -1,19 +1,8 @@
-export default function BottomChat({ scale = 1 }: { scale?: number }) {
+export default function BottomChat() {
     return (
-        <div
-            className="relative w-full border-[rgba(255,255,255,0.6)] border-solid border-2 border-t-transparent box-border bg-[rgba(0,0,0,0.2)] select-none"
-            style={{
-                height: 84 * scale + 'px',
-            }}
-        >
-            <div className="absolute h-[85%] w-[96%] top-[7.5%] left-[2%] box-border bg-[rgba(0,0,0,0.3)]"></div>
-            <div
-                className="absolute flex items-center h-full"
-                style={{
-                    width: 60 * scale + 'px',
-                    left: 30 * scale + 'px',
-                }}
-            >
+        <div className="relative w-[620px] h-[82px] select-none">
+            <div className="absolute h-[60px] w-[600px] bottom-[calc(100%_+_12px)] left-[2%] box-border bg-[rgba(0,0,0,0.3)]"></div>
+            <div className="absolute flex items-center h-full w-[50px] left-[30px] bottom-[100%]">
                 <svg className="w-full" fill="#ffffffd0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 561">
                     <path
                         className="cls-1"
@@ -21,16 +10,25 @@ export default function BottomChat({ scale = 1 }: { scale?: number }) {
                     />
                 </svg>
             </div>
+            <div data-name="text" className="absolute noto-sans-bold text-white right-5 top-[20px] text-[24px]"></div>
             <div
-                className="absolute noto-sans-bold text-white right-5"
-                style={{
-                    top: 20 * scale + 'px',
-                    fontSize: 24 * scale + 'px',
-                }}
+                data-name="top-left"
+                className="absolute h-[2px] w-[513px] bg-[rgba(255,255,255,0.6)] -left-[2px] bottom-[calc(100%_+_82px)]"
             ></div>
-            <div className="absolute h-[2px] w-[90%] bg-[rgba(255,255,255,0.6)] -left-[2px] -top-[2px]"></div>
-            <div className="absolute h-[2px] w-[2.6%] bg-[rgba(255,255,255,0.6)] -right-[2px] -top-[2px]"></div>
-            <div className="absolute h-[4px] w-[36px] bg-[#34d6ff] right-[20px] -top-[3px]"></div>
+            <div
+                data-name="top-right"
+                className="absolute h-[2px] w-[26px] bg-[rgba(255,255,255,0.6)] -right-[2px] bottom-[calc(100%_+_82px)]"
+            ></div>
+            <div data-name="top-top-right" className="absolute h-[2px] w-[75px] bg-[#34d6ff] right-[29px] bottom-[calc(100%_+_82px)]"></div>
+            <div data-name="bottom" className="absolute h-[2px] w-[624px] bg-[rgba(255,255,255,0.6)] -left-[2px] bottom-[100%]"></div>
+            <div
+                data-name="left"
+                className="absolute h-[80px] w-[2px] bg-[rgba(255,255,255,0.6)] -left-[2px] bottom-[calc(100%_+_2.05px)]"
+            ></div>
+            <div
+                data-name="right"
+                className="absolute h-[80px] w-[2px] bg-[rgba(255,255,255,0.6)] -right-[2px] bottom-[calc(100%_+_2.05px)]"
+            ></div>
         </div>
     );
 }

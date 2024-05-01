@@ -95,7 +95,7 @@ function LucGiacNho({ text, icon = 0, isRedDot }: _IProps) {
             {isRedDot && (
                 <div className="absolute top-[0] right-[18px]">
                     <div className="relative flex justify-center items-center">
-                        <div className="w-[23px] h-[23px] bg-[red] rounded-[50%] border-[3px] border-white"></div>
+                        <div className="w-[23px] h-[23px] bg-[red] rounded-[50%] border-[3px] border-white "></div>
                         <div className="absolute top-[-6px] w-[34px] rounded-[50%] h-[34px] border-[6px] border-[rgba(255,0,0,0.35)]"></div>
                     </div>
                 </div>

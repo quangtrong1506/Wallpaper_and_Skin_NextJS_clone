@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import AIChat from '../Components/Game/Screen/AIChat';
 import BottomChat from '../Components/Game/Screen/BottomChat';
 import ButtonLeft from '../Components/Shared/Game/ButtonLeft';
 import RightButton from '../Components/Shared/Game/RightButton';
@@ -23,6 +24,22 @@ function ScreenGamePage() {
     return (
         <div className="relative overflow-hidden h-screen w-screen bg-[black]">
             <div
+                className="w-[40%] absolute h-screen top-0 right-[100%]"
+                style={{
+                    transform: showChat ? 'translateX(100%)' : 'translateX(0)',
+                    transition: 'all 0.5s cubic-bezier(0.1, 0.1, 0.1, 1)',
+                }}
+            >
+                {/* <video className=" w-full h-full object-cover" src="/videos/hk-3.mp4" autoPlay muted loop></video> */}
+                <img
+                    className=" w-full object-cover"
+                    src="/images/test.png"
+                    style={{
+                        height: 1080 * scale + 'px',
+                    }}
+                ></img>
+            </div>
+            <div
                 className="overflow-hidden max-h-screen w-full"
                 style={{
                     transform: showChat ? 'translateX(40%)' : 'translateX(0)',
@@ -40,21 +57,36 @@ function ScreenGamePage() {
                 <>
                     <RightButton scale={scale} />
                     <TowButtonBottomRight scale={scale} />
-                    <ButtonLeft scale={scale} />
+
+                    <div
+                        className="fixed w-0 h-0 left-[2vw] bottom-[2vw]"
+                        style={{
+                            scale: scale.toString(),
+                        }}
+                        onClick={() => {
+                            setShowChat(true);
+                        }}
+                    >
+                        <BottomChat />
+                    </div>
                 </>
             )}
-
-            <div
-                className="fixed w-0 h-0 left-[2vw] bottom-[2vw]"
-                style={{
-                    scale: scale.toString(),
-                }}
-                onClick={() => {
-                    setShowChat(true);
-                }}
-            >
-                <BottomChat />
+            <div className="absolute w-0 h-0 top-1/2 -translate-y-1/2 left-0">
+                <div
+                    className="relative"
+                    style={{
+                        transform: showChat ? `translateX(-${500 * scale}px)` : 'translateX(0)',
+                        transition: 'all 0.5s cubic-bezier(0.1, 0.1, 0.1, 1)',
+                    }}
+                >
+                    <ButtonLeft scale={scale} />
+                </div>
             </div>
+            {showChat && (
+                <div className="w-[40%] absolute h-screen top-0 left-0">
+                    <AIChat scale={scale} />
+                </div>
+            )}
         </div>
     );
 }

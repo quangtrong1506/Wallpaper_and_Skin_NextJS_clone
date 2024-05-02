@@ -1,11 +1,11 @@
-import { randomUUID } from "crypto";
-import electron from "electron";
-import fse from "fs-extra";
-import path from "path";
-const userPath = electron.app.getPath("userData");
+import { randomUUID } from 'crypto';
+import electron from 'electron';
+import fse from 'fs-extra';
+import path from 'path';
+const userPath = electron.app.getPath('userData');
 
 const saveVideo = async (data, name = randomUUID()) => {
-    let fileType = data.type?.split("/")[1] || "mp4";
+    let fileType = data.type?.split('/')[1] || 'mp4';
     try {
         await fse.copy(data.path, path.join(userPath, `/assets/videos/${name}.${fileType}`));
         return {
@@ -19,13 +19,13 @@ const saveVideo = async (data, name = randomUUID()) => {
     }
 };
 const saveImage = async (data, name = randomUUID()) => {
-    let fileType = data.type || "png";
+    let fileType = data.type || 'png';
     try {
-        if (fileType === "base64") {
-            const buffer = Buffer.from(data.path, "base64");
+        if (fileType === 'base64') {
+            const buffer = Buffer.from(data.path, 'base64');
             const check = await fse.pathExists(path.join(userPath, `/assets/images/`));
             if (!check) await fse.ensureDir(path.join(userPath, `/assets/images/`));
-            await fse.writeFile(path.join(userPath, `/assets/images/${name}.png`), buffer, { flag: "w+" });
+            await fse.writeFile(path.join(userPath, `/assets/images/${name}.png`), buffer, { flag: 'w+' });
         } else await fse.copy(data.path, path.join(userPath, `/assets/images/${name}.png`));
         return {
             id: name,
@@ -42,12 +42,12 @@ const count = {
     image: 0,
 };
 const removeVideoById = async (id) => {
-    let fileName = id + ".mp4";
+    let fileName = id + '.mp4';
     try {
         await fse.remove(path.join(userPath, `/assets/videos/${fileName}`));
         return true;
     } catch (error) {
-        if (error.code === "EBUSY")
+        if (error.code === 'EBUSY')
             setTimeout(() => {
                 if (count.video === 5) return;
                 count.video++;
@@ -61,12 +61,12 @@ const removeVideoById = async (id) => {
 const removeImageById = async (id) => {
     console.log(id);
 
-    let fileName = id + ".png";
+    let fileName = id + '.png';
     try {
         await fse.remove(path.join(userPath, `/assets/images/${fileName}`));
         return true;
     } catch (error) {
-        if (error.code === "EBUSY")
+        if (error.code === 'EBUSY')
             setTimeout(() => {
                 if (count.image === 5) return;
                 count.image++;
@@ -86,7 +86,7 @@ const getListVideos = async () => {
         const list = [];
         files.forEach((file) => {
             list.push({
-                id: file.split(".")[0],
+                id: file.split('.')[0],
                 path: path.join(userPath, `/assets/videos/` + file),
             });
         });
@@ -99,7 +99,7 @@ const getListVideos = async () => {
 // Danh sách ảnh (icon shortcut) có sẵn
 const getListImages = () => {
     try {
-        const list = fse.readdirSync(path.join(electron.app.getAppPath(), "renderer/public/images/shortcuts/"));
+        const list = fse.readdirSync(path.join(electron.app.getAppPath(), 'renderer/public/images/shortcuts/'));
         return list;
     } catch (error) {
         console.log(error);

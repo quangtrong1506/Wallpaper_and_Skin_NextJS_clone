@@ -1,4 +1,4 @@
-import { contextBridge, ipcRenderer, IpcRendererEvent } from "electron";
+import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
 const handler = {
     send(channel: string, value: unknown) {
@@ -12,7 +12,7 @@ const handler = {
         };
     },
 };
-handler.on("main-to-window", (args: string) => {
+handler.on('main-to-window', (args: string) => {
     let _data: {
         channel: string;
         data: unknown;
@@ -24,10 +24,10 @@ handler.on("main-to-window", (args: string) => {
             channel: _data.channel,
             data: _data.data,
         },
-        "*"
+        '*'
     );
 });
 
-contextBridge.exposeInMainWorld("ipc", handler);
+contextBridge.exposeInMainWorld('ipc', handler);
 
 export type IpcHandler = typeof handler;

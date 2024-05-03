@@ -63,7 +63,10 @@ export const BG_WINDOW = async ({ id, name, type = 'default', options }: _IProps
                         (app) =>
                             app.DisplayIcon &&
                             !app.RegistryDirName.match(
-                                /\{(\.?[a-z0-9]){8,}-(\.?[a-z0-9]){4,}-(\.?[a-z0-9]){4,}-(\.?[a-z0-9]){4,}-(\.?[a-z0-9]){8,}\}/gm
+                                /\{(\.?[a-zA-Z0-9]){8,}-(\.?[a-zA-Z0-9]){4,}-(\.?[a-zA-Z0-9]){4,}-(\.?[a-zA-Z0-9]){4,}-(\.?[a-zA-Z0-9]){8,}\}/gm
+                            ) &&
+                            !app.RegistryDirName.match(
+                                /(\.?[a-zA-Z0-9]){8,}-(\.?[a-zA-Z0-9]){4,}-(\.?[a-zA-Z0-9]){4,}-(\.?[a-zA-Z0-9]){4,}-(\.?[a-zA-Z0-9]){8,}/gm
                             ) &&
                             app.RegistryDirName != 'Microsoft EdgeWebView'
                     ),

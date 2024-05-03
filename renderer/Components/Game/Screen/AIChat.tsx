@@ -2,10 +2,12 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { getMessage } from '../../../helpers/helpers';
+import mmd from '../../../helpers/mmd';
 import Loading from '../../Loading';
 
 function AIChat({ scale }: { scale: number }) {
     const inputRef = useRef<HTMLInputElement>();
+    const listChatRef = useRef<HTMLDivElement>();
     const [message, setMessage] = useState<Array<{ role: 0 | 1; content: string }>>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     useEffect(() => {
@@ -25,12 +27,19 @@ function AIChat({ scale }: { scale: number }) {
             inputRef.current.focus();
         }
     };
+    useEffect(() => {
+        listChatRef.current.scrollTop = 9999999;
+    }, [message]);
     return (
         <div className="relative bg-[rgba(0,0,0,0.4)] w-full h-full ">
             <div className="text-white noto-sans-medium pt-[5px] ms-5" style={{ fontSize: 50 * scale + 'px' }}>
                 AI Chat
             </div>
-            <div className="absolute  w-[calc(100%_-_5px)] h-[80%] max-h-[80%] top-[96px] left-[2px] overflow-hidden overflow-y-auto">
+            <div
+                ref={listChatRef}
+                className="absolute  w-[calc(100%_-_5px)] left-[2px] overflow-hidden overflow-y-auto"
+                style={{ maxHeight: 79 + 'vh', top: 96 * scale + 'px' }}
+            >
                 <div className="w-full h-5"></div>
                 {message.map((ms) => (
                     <>
@@ -50,36 +59,36 @@ function AIChat({ scale }: { scale: number }) {
                             <div className=" px-5 py-2 rounded-xl me-[15px]">
                                 <div className="text-[#fff] noto-sans-medium font-bold text-xl mb-1">Kết quả</div>
                                 <div
-                                    className="noto-sans-medium text-white bg-[rgba(255,255,255,0.2)] w-auto max-w-[95%] p-3 rounded-md"
-                                    dangerouslySetInnerHTML={{ __html: ms.content }}
+                                    className="noto-sans-medium text-[#e7f9ff] bg-[rgba(255,255,255,0.05)] w-auto max-w-[95%] p-3 rounded-md [&_strong]:text-[#47b1aa] [&_p]:my-3 "
+                                    dangerouslySetInnerHTML={{ __html: mmd(ms.content) }}
                                 ></div>
                             </div>
                         )}
                     </>
                 ))}
             </div>
-            <div className="absolute bottom-[30px] w-full" style={{ height: 82 * scale + 'px' }}>
+            <div className="absolute w-full" style={{ height: 82 * scale + 'px', bottom: 30 * scale + 'px' }}>
                 <div className="relative ms-[30px]" style={{ width: 700 * scale + 'px', height: 82 * scale + 'px' }}>
                     <div
-                        className="absolute h-[60px] bottom-[12px] left-[2%] box-border bg-[rgba(255,255,255,0.2)]"
-                        style={{ width: 670 * scale + 'px' }}
+                        className="absolute left-[2%] box-border bg-[rgba(255,255,255,0.2)]"
+                        style={{ width: 670 * scale + 'px', bottom: 12 * scale + 'px', height: 60 * scale + 'px' }}
                     ></div>
 
                     <div data-name="text" className="absolute noto-sans-bold text-white right-5 top-[20px] text-[24px]"></div>
                     <div
                         data-name="top-left"
-                        className="absolute h-[2px] bg-[rgba(255,255,255,0.6)] -left-[2px] bottom-[82px]"
-                        style={{ width: 593 * scale + 'px' }}
+                        className="absolute h-[2px] bg-[rgba(255,255,255,0.6)] -left-[2px]"
+                        style={{ width: 593 * scale + 'px', bottom: 82 * scale + 'px' }}
                     ></div>
                     <div
                         data-name="top-right"
-                        className="absolute h-[2px] bg-[rgba(255,255,255,0.6)] -right-[2px] bottom-[82px]"
-                        style={{ width: 26 * scale + 'px' }}
+                        className="absolute h-[2px] bg-[rgba(255,255,255,0.6)] -right-[2px]"
+                        style={{ width: 26 * scale + 'px', bottom: 82 * scale + 'px' }}
                     ></div>
                     <div
                         data-name="top-center"
-                        className="absolute h-[2px] bg-[#34d6ff] bottom-[82px]"
-                        style={{ width: 75 * scale + 'px', right: 29 * scale + 'px' }}
+                        className="absolute h-[2px] bg-[#34d6ff]"
+                        style={{ width: 75 * scale + 'px', right: 29 * scale + 'px', bottom: 82 * scale + 'px' }}
                     ></div>
                     <div
                         data-name="bottom"
@@ -88,20 +97,23 @@ function AIChat({ scale }: { scale: number }) {
                     ></div>
                     <div
                         data-name="left"
-                        className="absolute h-[80px] w-[2px] bg-[rgba(255,255,255,0.6)] -left-[2px] bottom-[2.05px]"
+                        className="absolute w-[2px] bg-[rgba(255,255,255,0.6)] -left-[2px] bottom-[2.05px]"
+                        style={{ height: 80 * scale + 'px' }}
                     ></div>
                     <div
                         data-name="right"
-                        className="absolute h-[80px] w-[2px] bg-[rgba(255,255,255,0.6)] -right-[2px] bottom-[2.05px]"
+                        className="absolute w-[2px] bg-[rgba(255,255,255,0.6)] -right-[2px] bottom-[2.05px]"
+                        style={{ height: 80 * scale + 'px' }}
                     ></div>
                     <input
                         ref={inputRef}
                         type="text"
                         placeholder="Hỏi tôi bất cứ điều gì?"
-                        className="ps-5 noto-sans-regular absolute text-white bg-transparent text-3xl rounded-md focus-visible:outline-none outline-none"
+                        className="ps-5 noto-sans-regular absolute text-white bg-transparent rounded-md focus-visible:outline-none outline-none"
                         style={{
                             height: 82 * scale + 'px',
                             width: 610 * scale + 'px',
+                            fontSize: 36 * scale + 'px',
                         }}
                         onKeyDown={(e) => {
                             if (e.key === 'Enter') {

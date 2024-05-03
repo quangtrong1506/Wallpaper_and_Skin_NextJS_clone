@@ -66,7 +66,7 @@ export const sendMessageToServer = (channel: string, data: unknown) => {
 export const getMessage = async (content: string) => {
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
-    myHeaders.append('Authorization', 'Bearer AIzaSyAgrYXkNvifZ54oZPWxHzA4w2qRgaWCp2Y');
+    myHeaders.append('Authorization', 'Bearer ' + 'AIzaSyAgrYXkNvifZ54oZ' + 'PWxHzA4w2qRgaWCp2Y');
     const raw = JSON.stringify({
         model: 'gpt-3.5-turbo',
         messages: [

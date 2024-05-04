@@ -115,3 +115,26 @@ body {
 .cls-1 {
     fill-rule: evenodd;
 }
+.run1 {
+    animation: run1 2s linear infinite;
+}
+@keyframes run1 {
+    0% {
+        left: -38px;
+    }
+    100% {
+        left: calc(100% + 38px);
+    }
+}
+
+.run2 {
+    animation: run2 2s linear infinite;
+}
+@keyframes run2 {
+    0% {
+        right: -35px;
+    }
+    100% {
+        right: calc(100% + 35px);
+    }
+}

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import ListApp from '../Components/Game/ListApp';
 import AIChat from '../Components/Game/Screen/AIChat';
 import BottomChat from '../Components/Game/Screen/BottomChat';
+import Time from '../Components/Game/Screen/Time';
 import ButtonLeft from '../Components/Shared/Game/ButtonLeft';
 import RightButton from '../Components/Shared/Game/RightButton';
 import TowButtonBottomRight from '../Components/Shared/Game/TowButtonBottomRight';
@@ -56,16 +57,9 @@ function ScreenGamePage() {
                     }}
                 >
                     <UserName scale={scale} />
-                    <video className="object-contain h-full w-full" muted autoPlay loop src="/videos/hk-3.mp4"></video>
+                    <video id="video-bg" className="object-contain h-full w-full" muted autoPlay loop src="/videos/hk-3.mp4"></video>
                     {/* <img src="/images/abc.png" alt="" /> */}
-                    <div className="absolute top-[50px] left-[1254px] w-[250px] h-[48px]">
-                        <div className="relative h-full w-full border-[2px] border-[#896b97e6]">
-                            <div className="absolute bg-[black] opacity-20 w-[96%] h-[90%] top-[5%] left-[2%]"></div>
-                            <div className="text-[#f89191] absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 noto-sans-medium text-4xl opacity-50">
-                                12:00:00
-                            </div>
-                        </div>
-                    </div>
+                    <Time scale={scale} />
                 </div>
                 {!showChat && (
                     <>

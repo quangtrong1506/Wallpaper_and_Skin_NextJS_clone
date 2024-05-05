@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import ListApp from '../Components/Game/ListApp';
 import AIChat from '../Components/Game/Screen/AIChat';
 import BottomChat from '../Components/Game/Screen/BottomChat';
+import Day from '../Components/Game/Screen/Day';
 import Time from '../Components/Game/Screen/Time';
 import ButtonLeft from '../Components/Shared/Game/ButtonLeft';
-import RightButton from '../Components/Shared/Game/RightButton';
 import TowButtonBottomRight from '../Components/Shared/Game/TowButtonBottomRight';
 import UserName from '../Components/Shared/Game/UserName';
 
@@ -60,6 +60,7 @@ function ScreenGamePage() {
                     <video id="video-bg" className="object-contain h-full w-full" muted autoPlay loop src="/videos/hk-3.mp4"></video>
                     {/* <img src="/images/abc.png" alt="" /> */}
                     <Time scale={scale} />
+                    <Day scale={scale} />
                 </div>
                 {!showChat && (
                     <>
@@ -96,11 +97,11 @@ function ScreenGamePage() {
                     </div>
                 )}
             </div>
-            {!showChat && (
+            {/* {!showChat && (
                 <>
                     <RightButton scale={scale} listEvent={{ setApps: setShowApps }} />
                 </>
-            )}
+            )} */}
             <div
                 className="absolute top-0 bottom-0 right-0 bg-[rgba(0,0,0,0.7)] w-[45%] "
                 style={{

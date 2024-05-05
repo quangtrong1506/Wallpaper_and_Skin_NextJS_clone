@@ -22,33 +22,43 @@ function Time({ scale = 1 }: { scale?: number }) {
         let id = setInterval(() => {
             setData();
         }, 1000);
+
+        return () => {
+            clearInterval(id);
+        };
+    }, []);
+    useEffect(() => {
         let id2 = setInterval(() => {
             let video: HTMLVideoElement = document.getElementById('video-bg') as HTMLVideoElement;
-            if (video.currentTime > 3 && video.currentTime < 30) {
+            if ((video.currentTime > 3.1 && video.currentTime < 15) || (video.currentTime > 19 && video.currentTime < 31)) {
+                !open && setOpen(true);
+            } else {
+                open && setOpen(false);
             }
         }, 100);
         return () => {
-            clearInterval(id);
             clearInterval(id2);
         };
-    }, []);
+    }, [open]);
+
     return (
         <div
-            className="absolute overflow-hidden"
+            className="absolute overflow-hidden open"
             style={{
-                top: 75 * scale + 'px',
-                left: 1570 * scale + 'px',
-                width: 300 * scale + 'px',
-                height: 48 * scale + 'px',
+                top: 15 * scale + 'px',
+                left: 1568 * scale + 'px',
+                width: open ? 340 * scale + 'px' : '0px',
+                height: 105 * scale + 'px',
+                transition: open ? 'all 0.7s cubic-bezier(0.2, 0.2, 0.3, 0.5)' : 'all 0.9s cubic-bezier(0.1, 0.1, 0.3, 0.4)',
             }}
         >
-            <div id="box-time" className="relative h-full w-full border-[2px] border-[#8a6b96] ">
+            <div id="box-time" className="relative border-[2px] border-[#8a6b96] open h-full nhay-nhay">
                 <div className="absolute bg-[black] opacity-20 w-[96%] h-[90%] top-[5%] left-[2%]"></div>
                 <div
                     className="text-[#8a6b96] absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 noto-sans-medium font-bold"
                     style={{
-                        fontSize: 36 * scale + 'px',
-                        lineHeight: 40 * scale + 'px',
+                        fontSize: 72 * scale + 'px',
+                        lineHeight: 80 * scale + 'px',
                     }}
                 >
                     {time.hour}:{time.minute}:{time.second}

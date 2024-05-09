@@ -9,7 +9,7 @@ function TowButtonBottomRight({ scale }: { scale: number }) {
             }}
         >
             <div className="relative h-[84px] -translate-x-[610px] -translate-y-[84px]">
-                <div className="absolute flex">
+                <div className="absolute flex justify-end">
                     <div>
                         <BottomButton icon={0} text="Hải Quân" />
                     </div>

@@ -44,7 +44,49 @@
     font-family: 'Sedgwick Ave Display';
     src: url('./SedgwickAveDisplay-Regular.ttf');
 }
+/* Nền trong suốt */
+@font-face {
+    font-family: 'Londrina Outline Regular';
+    src: url('./LondrinaOutline-Regular.ttf');
+}
+/* Kiểu ngày */
+@font-face {
+    font-family: 'Jaini';
+    src: url('./Jaini-Regular.ttf');
+}
 
+/* Kiểu time có nền */
+@font-face {
+    font-family: 'Jersey25 Charted Regular';
+    src: url('./Jersey25Charted-Regular.ttf');
+}
+@font-face {
+    font-family: 'Time';
+    src: url('./Jersey25Charted-Regular.ttf');
+}
+/* Kiểu vuông góc */
+@font-face {
+    font-family: 'ZCOOLQingKeHuangYou';
+    src: url('./ZCOOLQingKeHuangYou-Regular.ttf');
+}
+/* Chữ ngoàn nghèo nghệ thuật */
+@font-face {
+    font-family: 'Finger Paint Regular';
+    src: url('./FingerPaint-Regular.ttf');
+}
+.f-time {
+    font-family: 'Time';
+}
+.f-time-square {
+    font-family: 'ZCOOLQingKeHuangYou';
+}
+
+.f-finger-paint-regular {
+    font-family: 'Finger Paint Regular';
+}
+.londrina-outline-regular {
+    font-family: 'Londrina Outline Regular', sans-serif;
+}
 .noto-sans-regular {
     font-family: 'Noto Sans Regular', sans-serif;
 }
@@ -63,6 +105,7 @@
 .noto-sans-light {
     font-family: 'Noto Sans Light', sans-serif;
 }
+
 .font-start {
     font-family: 'Sedgwick Ave Display', sans-serif;
 }
@@ -136,5 +179,75 @@ body {
     }
     100% {
         right: calc(100% + 35px);
+    }
+}
+
+.words-year {
+    font-size: 0;
+    line-height: 1.5;
+}
+
+.words-year span {
+    display: inline-block;
+    animation: move 3s ease-in-out infinite;
+    color: #8a6b96;
+}
+
+@keyframes move {
+    0% {
+        color: #8a6b96;
+    }
+    50% {
+        color: #c6b1ce;
+    }
+    100% {
+        color: #8a6b96;
+    }
+}
+
+.words-year span:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.words-year span:nth-child(3) {
+    animation-delay: 1s;
+}
+
+.words-year span:nth-child(4) {
+    animation-delay: 1.5s;
+}
+
+.words-year span:nth-child(5) {
+    animation-delay: 2s;
+}
+
+.words-year span:nth-child(6) {
+    animation-delay: 2.5s;
+}
+
+.words-year span:nth-child(7) {
+    animation-delay: 3s;
+}
+
+.svg-text text {
+    font-family: 'Jaini';
+    letter-spacing: 3px;
+    stroke: #8a6b96;
+    font-weight: 700;
+    animation: textAnimate 5s infinite alternate;
+    stroke-width: 0.5px;
+}
+
+@keyframes textAnimate {
+    0% {
+        stroke-dasharray: 0 50%;
+        stroke-dashoffset: 20%;
+        fill: #8a6b96;
+    }
+
+    100% {
+        stroke-dasharray: 50% 0;
+        stroke-dashoffstet: -20%;
+        fill: hsla(189, 68%, 75%, 0%);
     }
 }

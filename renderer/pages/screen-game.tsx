@@ -3,9 +3,10 @@ import ListApp from '../Components/Game/ListApp';
 import AIChat from '../Components/Game/Screen/AIChat';
 import BottomChat from '../Components/Game/Screen/BottomChat';
 import Day from '../Components/Game/Screen/Day';
+import FullTime from '../Components/Game/Screen/FullTime';
 import Time from '../Components/Game/Screen/Time';
 import ButtonLeft from '../Components/Shared/Game/ButtonLeft';
-import TowButtonBottomRight from '../Components/Shared/Game/TowButtonBottomRight';
+import TowButtonBottomRightOnly from '../Components/Shared/Game/TowButtonBottomRightOnly';
 import UserName from '../Components/Shared/Game/UserName';
 
 function ScreenGamePage() {
@@ -61,11 +62,12 @@ function ScreenGamePage() {
                     {/* <img src="/images/abc.png" alt="" /> */}
                     <Time scale={scale} />
                     <Day scale={scale} />
+                    <FullTime scale={scale} />
                 </div>
                 {!showChat && (
                     <>
                         {/* <RightButton scale={scale} listEvent={{ setApps: setShowApps }} /> */}
-                        <TowButtonBottomRight scale={scale} />
+                        <TowButtonBottomRightOnly scale={scale} />
 
                         <div
                             className="fixed w-0 h-0 left-[2vw] bottom-[2vw]"

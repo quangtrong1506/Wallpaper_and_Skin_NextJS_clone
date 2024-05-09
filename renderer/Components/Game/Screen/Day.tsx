@@ -24,8 +24,8 @@ function Day({ scale = 1 }: { scale?: number }) {
             style={{
                 top: 18 * scale + 'px',
                 left: 1148 * scale + 'px',
-                width: 384 * scale + 'px',
-                height: 90 * scale + 'px',
+                width: 395 * scale + 'px',
+                height: 100 * scale + 'px',
                 opacity: open ? 1 : 0,
                 transition: open ? 'all 0.3s cubic-bezier(0.2, 0.2, 0.3, 0.5)' : 'all 0.4s cubic-bezier(0.1, 0.1, 0.3, 0.4)',
             }}
@@ -33,8 +33,8 @@ function Day({ scale = 1 }: { scale?: number }) {
             <div className="w-full h-full">
                 <svg className="svg-text" width="100%" height="100%">
                     <rect x={0} y={0} width="100%" height="100%" fill="url(#polka-dots)"></rect>
-                    <text style={{ fontSize: 78 * scale + 'px' }} x="50%" y="60%" textAnchor="middle">
-                        {days[new Date().getDay()].toUpperCase()}
+                    <text style={{ fontSize: 88 * scale + 'px' }} x="50%" y="60%" textAnchor="middle">
+                        {days[3].toUpperCase()}
                     </text>
                 </svg>
             </div>

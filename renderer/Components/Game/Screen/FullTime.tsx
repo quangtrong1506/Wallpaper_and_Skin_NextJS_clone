@@ -30,9 +30,35 @@ function FullTime({ scale = 1 }: { scale?: number }) {
                 transition: open ? 'all 0.3s cubic-bezier(0.2, 0.2, 0.3, 0.5)' : 'all 0.4s cubic-bezier(0.1, 0.1, 0.3, 0.4)',
             }}
         >
-            <div className="relative h-20 f-finger-paint-regular" style={{ fontSize: 72 * scale + 'px', lineHeight: '60px' }}>
-                <div className="text-[#bd9bca]">05</div>
-                <div className="absolute top-[52px]">
+            <div className="relative f-finger-paint-regular" style={{ marginTop: 5 * scale + 'px', height: 140 * scale + 'px' }}>
+                <div
+                    className="text-[#8a6b96] relative overflow-hidden "
+                    style={{ fontSize: 135 * scale + 'px', lineHeight: 120 * scale + 'px', height: 120 * scale + 'px' }}
+                >
+                    <div
+                        className=" absolute top-0"
+                        style={{
+                            transition: open ? 'all 1.5s cubic-bezier(0.2, 0.2, 0.5, 0.8)' : 'all 1.5s cubic-bezier(0.2, 0.2, 0.5, 0.8)',
+                            transitionDelay: open ? '0s' : '2s',
+                            transform: open ? `translateY(-${new Date().getMonth() * scale * 130 + 'px'})` : 'translateY(0)',
+                            // opacity: open ? 1 : 0,
+                        }}
+                    >
+                        <div className="my-[5px]">01</div>
+                        <div className="my-[5px]">02</div>
+                        <div className="my-[5px]">03</div>
+                        <div className="my-[5px]">04</div>
+                        <div className="my-[5px]">05</div>
+                        <div className="my-[5px]">06</div>
+                        <div className="my-[5px]">07</div>
+                        <div className="my-[5px]">08</div>
+                        <div className="my-[5px]">09</div>
+                        <div className="my-[5px]">10</div>
+                        <div className="my-[5px]">11</div>
+                        <div className="my-[5px]">12</div>
+                    </div>
+                </div>
+                <div className="absolute" style={{ top: 130 * scale + 'px' }}>
                     <img src="/images/thang-01.png" alt="..." />
                 </div>
             </div>

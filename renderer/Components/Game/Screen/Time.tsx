@@ -48,7 +48,7 @@ function Time({ scale = 1 }: { scale?: number }) {
                 left: 1568 * scale + 'px',
                 width: open ? 340 * scale + 'px' : '0px',
                 height: 105 * scale + 'px',
-                transition: open ? 'all 0.7s cubic-bezier(0.2, 0.2, 0.3, 0.5)' : 'all 0.8s cubic-bezier(0.4, 0.3, 0.1, 0.1)',
+                transition: open ? 'all 0.7s cubic-bezier(0.2, 0.2, 0.3, 0.5)' : 'all 0.75s cubic-bezier(0.5, 0.3, 0.2, 0.2)',
             }}
         >
             <div id="box-time" className="relative border-[2px] border-[#8a6b96] open h-full nhay-nhay">
@@ -60,11 +60,17 @@ function Time({ scale = 1 }: { scale?: number }) {
                         lineHeight: 80 * scale + 'px',
                     }}
                 >
-                    <div style={{ width: 90 * scale + 'px' }}>{time.hour}</div>
-                    <div>:</div>
-                    <div style={{ width: 90 * scale + 'px' }}>{time.minute}</div>
-                    <div>:</div>
-                    <div style={{ width: 90 * scale + 'px' }}>{time.second}</div>
+                    <div className="text-center" style={{ width: 90 * scale + 'px' }}>
+                        {time.hour}
+                    </div>
+                    <div className="w-5 text-center">:</div>
+                    <div className="text-center" style={{ width: 90 * scale + 'px' }}>
+                        {time.minute}
+                    </div>
+                    <div className="w-5 text-center">:</div>
+                    <div className="text-center" style={{ width: 90 * scale + 'px' }}>
+                        {time.second}
+                    </div>
                 </div>
                 <div className="absolute w-[40px] h-[2px] bg-[#bd9bca] top-[-2px] run1"></div>
                 <div className="absolute w-[40px] h-[2px] bg-[#bd9bca] bottom-[-2px] run2"></div>

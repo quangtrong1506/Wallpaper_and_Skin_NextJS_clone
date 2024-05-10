@@ -1,4 +1,4 @@
-function TowButtonBottomRightOnly({ scale }: { scale: number }) {
+function ButtonBottomRightOnly({ scale }: { scale: number }) {
     return (
         <div
             className="absolute w-0 h-0 bottom-[2vw] right-[2vw]"
@@ -15,4 +15,4 @@ function TowButtonBottomRightOnly({ scale }: { scale: number }) {
     );
 }
 
-export default TowButtonBottomRightOnly;
+export default ButtonBottomRightOnly;

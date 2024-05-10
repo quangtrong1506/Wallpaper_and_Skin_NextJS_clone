@@ -5,8 +5,8 @@ import BottomChat from '../Components/Game/Screen/BottomChat';
 import Day from '../Components/Game/Screen/Day';
 import FullTime from '../Components/Game/Screen/FullTime';
 import Time from '../Components/Game/Screen/Time';
+import ButtonBottomRightOnly from '../Components/Shared/Game/ButtonBottomRightOnly';
 import ButtonLeft from '../Components/Shared/Game/ButtonLeft';
-import TowButtonBottomRightOnly from '../Components/Shared/Game/TowButtonBottomRightOnly';
 import UserName from '../Components/Shared/Game/UserName';
 
 function ScreenGamePage() {
@@ -67,7 +67,7 @@ function ScreenGamePage() {
                 {!showChat && (
                     <>
                         {/* <RightButton scale={scale} listEvent={{ setApps: setShowApps }} /> */}
-                        <TowButtonBottomRightOnly scale={scale} />
+                        <ButtonBottomRightOnly scale={scale} />
 
                         <div
                             className="fixed w-0 h-0 left-[2vw] bottom-[2vw]"

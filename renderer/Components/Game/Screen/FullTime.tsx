@@ -31,35 +31,25 @@ function FullTime({ scale = 1 }: { scale?: number }) {
             }}
         >
             <div className="relative f-finger-paint-regular" style={{ marginTop: 5 * scale + 'px', height: 140 * scale + 'px' }}>
-                <div
-                    className="text-[#8a6b96] relative overflow-hidden "
-                    style={{ fontSize: 135 * scale + 'px', lineHeight: 120 * scale + 'px', height: 120 * scale + 'px' }}
-                >
+                <div className="text-[#8a6b96] relative overflow-hidden " style={{ fontSize: 135 * scale + 'px', lineHeight: 120 * scale + 'px', height: 120 * scale + 'px' }}>
                     <div
                         className=" absolute top-0"
                         style={{
-                            transition: open ? 'all 1.5s cubic-bezier(0.2, 0.2, 0.5, 0.8)' : 'all 1.5s cubic-bezier(0.2, 0.2, 0.5, 0.8)',
+                            transition: open ? 'all 2.5s cubic-bezier(0.2, 0.2, 0.5, 0.8)' : 'all 1.5s cubic-bezier(0.2, 0.2, 0.5, 0.8)',
                             transitionDelay: open ? '0s' : '2s',
-                            transform: open ? `translateY(-${new Date().getMonth() * scale * 130 + 'px'})` : 'translateY(0)',
+                            transform: open ? `translateY(-${new Date().getDate() * scale * 120 + 'px'})` : 'translateY(0)',
                             // opacity: open ? 1 : 0,
                         }}
                     >
-                        <div className="my-[5px]">01</div>
-                        <div className="my-[5px]">02</div>
-                        <div className="my-[5px]">03</div>
-                        <div className="my-[5px]">04</div>
-                        <div className="my-[5px]">05</div>
-                        <div className="my-[5px]">06</div>
-                        <div className="my-[5px]">07</div>
-                        <div className="my-[5px]">08</div>
-                        <div className="my-[5px]">09</div>
-                        <div className="my-[5px]">10</div>
-                        <div className="my-[5px]">11</div>
-                        <div className="my-[5px]">12</div>
+                        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31].map((i) => (
+                            <div key={i} className="h-[100px] mb-[20px]">
+                                {i.toString().padStart(2, '0')}
+                            </div>
+                        ))}
                     </div>
                 </div>
                 <div className="absolute" style={{ top: 130 * scale + 'px' }}>
-                    <img src="/images/thang-01.png" alt="..." />
+                    <img src={`/images/months/${new Date().getMonth()}.png`} alt="..." />
                 </div>
             </div>
             <div className="relative text-[0px] font-bold  londrina-outline-regular words-year">
@@ -72,10 +62,7 @@ function FullTime({ scale = 1 }: { scale?: number }) {
                 <span className="absolute year-3" style={{ fontSize: 68 * scale + 'px', top: 68 * scale + 'px', left: 78 * scale + 'px' }}>
                     2
                 </span>
-                <span
-                    className="absolute year-4"
-                    style={{ fontSize: 68 * scale + 'px', top: 102 * scale + 'px', left: 118 * scale + 'px' }}
-                >
+                <span className="absolute year-4" style={{ fontSize: 68 * scale + 'px', top: 102 * scale + 'px', left: 118 * scale + 'px' }}>
                     4
                 </span>
             </div>

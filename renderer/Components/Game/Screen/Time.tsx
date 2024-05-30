@@ -1,5 +1,6 @@
 'use client';
 
+import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 function Time({ scale = 1 }: { scale?: number }) {
     const [time, setTime] = useState({
@@ -54,22 +55,67 @@ function Time({ scale = 1 }: { scale?: number }) {
             <div id="box-time" className="relative border-[2px] border-[#8a6b96] open h-full nhay-nhay">
                 <div className="absolute bg-[black] opacity-20 w-[96%] h-[90%] top-[5%] left-[2%]"></div>
                 <div
-                    className=" text-[#8a6b96] absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 f-time-square flex"
+                    className=" text-[#8a6b96] absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 f-time-d-7 flex"
                     style={{
-                        fontSize: 88 * scale + 'px',
+                        fontSize: 92 * scale + 'px',
                         lineHeight: 80 * scale + 'px',
                     }}
                 >
-                    <div className="text-center" style={{ width: 90 * scale + 'px' }}>
-                        {time.hour}
+                    <div className=" w-[90px] flex">
+                        <div
+                            className={clsx('text-center', parseInt(time.hour.split('')[0]) == 1 && parseInt(time.hour.split('')[1]) ? 'text-right' : '')}
+                            style={{
+                                width: 45 * scale + 'px',
+                            }}
+                        >
+                            {time.hour.split('')[0]}
+                        </div>
+                        <div
+                            className={clsx('text-center', parseInt(time.hour.split('')[0]) == 1 && parseInt(time.hour.split('')[1]) ? 'text-right' : '')}
+                            style={{
+                                width: 45 * scale + 'px',
+                            }}
+                        >
+                            {time.hour.split('')[1]}
+                        </div>
                     </div>
-                    <div className="w-5 text-center">:</div>
-                    <div className="text-center" style={{ width: 90 * scale + 'px' }}>
-                        {time.minute}
+                    <div>:</div>
+                    <div className=" w-[90px] flex">
+                        <div
+                            className={clsx('text-center')}
+                            style={{
+                                width: 45 * scale + 'px',
+                            }}
+                        >
+                            {time.minute.split('')[0]}
+                        </div>
+                        <div
+                            className={clsx('text-center')}
+                            style={{
+                                width: 45 * scale + 'px',
+                            }}
+                        >
+                            {time.minute.split('')[1]}
+                        </div>
                     </div>
-                    <div className="w-5 text-center">:</div>
-                    <div className="text-center" style={{ width: 90 * scale + 'px' }}>
-                        {time.second}
+                    <div>:</div>
+                    <div className=" w-[90px] flex">
+                        <div
+                            className={clsx('text-center', parseInt(time.second.split('')[0]) == 1 && parseInt(time.second.split('')[1]) ? 'text-left' : '')}
+                            style={{
+                                width: 45 * scale + 'px',
+                            }}
+                        >
+                            {time.second.split('')[0]}
+                        </div>
+                        <div
+                            className={clsx('text-center', parseInt(time.second.split('')[0]) == 1 && parseInt(time.second.split('')[1]) ? 'text-left' : '')}
+                            style={{
+                                width: 45 * scale + 'px',
+                            }}
+                        >
+                            {time.second.split('')[1]}
+                        </div>
                     </div>
                 </div>
                 <div className="absolute w-[40px] h-[2px] bg-[#bd9bca] top-[-2px] run1"></div>

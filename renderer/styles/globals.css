@@ -74,11 +74,18 @@
     font-family: 'Finger Paint Regular';
     src: url('./FingerPaint-Regular.ttf');
 }
+@font-face {
+    font-family: 'D7';
+    src: url('./digital-7.ttf');
+}
 .f-time {
     font-family: 'Time';
 }
 .f-time-square {
     font-family: 'ZCOOLQingKeHuangYou';
+}
+.f-time-d-7 {
+    font-family: 'D7';
 }
 
 .f-finger-paint-regular {

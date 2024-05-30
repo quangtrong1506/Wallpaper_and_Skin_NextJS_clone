@@ -1,32 +1,27 @@
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import https from 'https';
+
 export const customId = () => {
     let id = new Date().getTime();
     return id.toString();
 };
 
-export const saveImage = ({ name, url }: { name: string; url: string }) => {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = function () {
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.drawImage(img, 0, 0);
-        let dataURL = canvas.toDataURL('image/png');
-        dataURL = dataURL.replace(/^data:image\/(png|jpg);base64,/, '');
-        window.ipc?.send(
-            'message',
-            JSON.stringify({
-                type: 'save-image',
-                data: {
-                    path: dataURL,
-                    type: 'base64',
-                    name,
+export const saveImage = ({ name, image, typeSave, path }: { path: string; name: string; image: any; typeSave?: any }) => {
+    image.type = getImageType(typeSave == 'base64' ? image.data.path : image.url) ?? 'png';
+    window.ipc?.send(
+        'message',
+        JSON.stringify({
+            type: 'save-image',
+            data: {
+                image: {
+                    ...image,
+                    path,
                 },
-            })
-        );
-    };
-    img.src = url;
+                name,
+                typeSave,
+            },
+        })
+    );
 };
 
 export const imageToBase64 = (url: any, callback?: (string) => void) => {
@@ -44,16 +39,16 @@ export const imageToBase64 = (url: any, callback?: (string) => void) => {
     };
     img.src = url;
 };
-export const destroyImage = (id: string) => {
+export const destroyImage = (fileName: string) => {
     window.ipc?.send(
         'message',
         JSON.stringify({
             type: 'destroy-image',
-            data: id,
+            data: fileName,
         })
     );
 };
-export const sendMessageToServer = (channel: string, data: unknown) => {
+export const sendMessageToServer = (channel: string, data?: unknown) => {
     window.ipc?.send(
         'message',
         JSON.stringify({
@@ -62,27 +57,40 @@ export const sendMessageToServer = (channel: string, data: unknown) => {
         })
     );
 };
-
+const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GGAPIKEY);
 export const getMessage = async (content: string) => {
-    const myHeaders = new Headers();
-    myHeaders.append('Content-Type', 'application/json');
-    myHeaders.append('Authorization', 'Bearer ' + 'AIzaSyAgrYXkNvifZ54oZ' + 'PWxHzA4w2qRgaWCp2Y');
-    const raw = JSON.stringify({
-        model: 'gpt-3.5-turbo',
-        messages: [
-            {
-                role: 'user',
-                content,
-            },
-        ],
-        temperature: 0.7,
-    });
-    let res = await fetch('https://free-gpt-api.chatvn.org/v1/chat/completions', {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow',
-    });
-    let result = await res.json();
-    return result;
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' });
+    const result = await model.generateContent(content);
+    const response = await result.response;
+    const text = response.text();
+    return text;
 };
+export const getImageType = (path) => {
+    if (!path) return;
+    let a: string[] = path.split('.');
+    let type = a[a.length - 1] ?? 'png';
+    return type;
+};
+
+// Hàm kiểm tra video tồn tại trên YouTube
+export function checkVideoExists(videoId: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+        const options = {
+            hostname: 'www.youtube.com',
+            port: 443,
+            path: `/oembed?format=json&url=https://www.youtube.com/watch?v=${videoId}`,
+            method: 'HEAD',
+        };
+
+        const req = https.request(options, (res) => {
+            // Nếu mã trạng thái là 404, video không tồn tại
+            resolve(res.statusCode !== 404 && res.statusCode !== 400);
+        });
+
+        req.on('error', (e) => {
+            reject(e);
+        });
+
+        req.end();
+    });
+}

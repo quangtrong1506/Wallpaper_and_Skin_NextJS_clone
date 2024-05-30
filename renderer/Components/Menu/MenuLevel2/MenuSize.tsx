@@ -1,12 +1,12 @@
-"use client";
-import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { SIZE } from "../../../helpers/constant";
-import { DATA } from "../../../helpers/data";
-import { sortShortcuts } from "../../../helpers/shortcuts";
-import { setInitShortcut, setIsHidden } from "../../../redux/features/shortcut";
-import { useAppSelector } from "../../../redux/store";
-import RightCheck from "../../Icons/RightCheck";
+'use client';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { SIZE } from '../../../helpers/constant';
+import { DATA } from '../../../helpers/data';
+import { sortShortcuts } from '../../../helpers/shortcuts';
+import { setInitShortcut, setIsHidden } from '../../../redux/features/shortcut';
+import { useAppSelector } from '../../../redux/store';
+import RightCheck from '../../Icons/RightCheck';
 interface IProps {
     x?: number;
     y?: number;
@@ -17,9 +17,9 @@ function MenuSize({ x, y, setIsShowMenu }: IProps) {
     const SHORTCUTS = useAppSelector((state) => state.shortcutsReducer);
     const TEXT = useAppSelector((state) => state.languageReducer);
     const urRef = useRef<HTMLUListElement>();
-    const [main, setMain] = useState({ clientHeight: 0, clientWidth: 0 });
+    const [main, setMain] = useState({ clientHeight: 1080, clientWidth: 1920 });
     useEffect(() => {
-        let { clientHeight, clientWidth } = document.querySelector(".main");
+        let { clientHeight, clientWidth } = document.querySelector('.main');
         setMain({ clientHeight, clientWidth });
     }, []);
 
@@ -49,14 +49,16 @@ function MenuSize({ x, y, setIsShowMenu }: IProps) {
         DATA.setShortcuts(newS.shortcuts);
         dispatch(setInitShortcut(newS.shortcuts));
     };
+    let minW = main.clientWidth < 1024 ? 370 : main.clientWidth < 1280 ? 444 : 570;
+    let minH = (main.clientWidth < 1024 ? 280 : main.clientWidth < 1280 ? 320 : 410) + 100;
     let style = {
-        left: main.clientWidth - x < 380 ? "-183px" : "183px",
-        top: main.clientHeight - y < 370 ? "-" + (370 - (main.clientHeight - y)) + "px" : "0px",
+        left: main.clientWidth - x < minW ? `-${minW / 2 + 3}px` : `${minW / 2 + 3}px`,
+        top: main.clientHeight - y < minH ? '-' + (minH - (main.clientHeight - y)) + 'px' : '0px',
     };
     return (
         <ul
             ref={urRef}
-            className="absolute z-40 bg-white w-full rounded shadow shadow-[black] py-1"
+            className="absolute z-40 bg-white w-full rounded shadow shadow-[black] py-1 "
             style={style}
             onMouseLeave={() => {
                 setIsShowMenu(false);
@@ -66,7 +68,7 @@ function MenuSize({ x, y, setIsShowMenu }: IProps) {
                 return (
                     <li
                         key={index}
-                        className="cursor-pointer hover:bg-gray-100 px-3 py-[2px] text-xl max-xl:text-base relative"
+                        className="cursor-pointer hover:bg-gray-200 px-3 py-[2px] xl:py-[6px] text-xl lg:text-2xl max-xl:text-base relative"
                         onClick={() => {
                             let s = size[0];
                             handleSetSize(s);
@@ -82,32 +84,32 @@ function MenuSize({ x, y, setIsShowMenu }: IProps) {
                 <hr />
             </li>
             <li
-                className="cursor-pointer hover:bg-gray-100 px-3 py-[2px] text-xl max-xl:text-base relative"
+                className="cursor-pointer hover:bg-gray-200 px-3 py-[2px] xl:py-[6px] text-xl lg:text-2xl max-xl:text-base relative"
                 onClick={() => {
-                    handleSetShort("AZ");
+                    handleSetShort('AZ');
                 }}
             >
                 <span>Short by A-Z</span>
-                {SHORTCUTS.short_by === "AZ" && <RightCheck />}
+                {SHORTCUTS.short_by === 'AZ' && <RightCheck />}
             </li>
             <li
-                className="cursor-pointer hover:bg-gray-100 px-3 py-[2px] text-xl max-xl:text-base relative"
+                className="cursor-pointer hover:bg-gray-200 px-3 py-[2px] xl:py-[6px] text-xl lg:text-2xl max-xl:text-base relative"
                 onClick={() => {
-                    handleSetShort("ZA");
+                    handleSetShort('ZA');
                 }}
             >
                 <span>Short by Z-A</span>
-                {SHORTCUTS.short_by === "ZA" && <RightCheck />}
+                {SHORTCUTS.short_by === 'ZA' && <RightCheck />}
             </li>
             <li>
                 <hr />
             </li>
-            <li className="cursor-pointer hover:bg-gray-100 px-3 py-[2px] text-xl max-xl:text-base relative" onClick={handleSetShortByGrid}>
+            <li className="cursor-pointer hover:bg-gray-200 px-3 py-[2px] xl:py-[6px] text-xl lg:text-2xl max-xl:text-base relative" onClick={handleSetShortByGrid}>
                 <span>{TEXT.menu.sort_by_grid}</span>
                 {SHORTCUTS.short_by_grid && <RightCheck />}
             </li>
             <li
-                className="cursor-pointer hover:bg-gray-100 px-3 py-[2px] text-xl max-xl:text-base relative"
+                className="cursor-pointer hover:bg-gray-200 px-3 py-[2px] xl:py-[6px] text-xl lg:text-2xl max-xl:text-base relative"
                 onClick={() => {
                     dispatch(setIsHidden(!SHORTCUTS.isHidden));
                 }}

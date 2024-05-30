@@ -33,7 +33,7 @@ function Day({ scale = 1 }: { scale?: number }) {
             <div className="w-full h-full">
                 <svg className="svg-text" width="100%" height="100%">
                     <rect x={0} y={0} width="100%" height="100%" fill="url(#polka-dots)"></rect>
-                    <text style={{ fontSize: 88 * scale + 'px' }} x="50%" y="60%" textAnchor="middle">
+                    <text style={{ fontSize: 82 * scale + 'px' }} x="50%" y="60%" textAnchor="middle">
                         {days[3].toUpperCase()}
                     </text>
                 </svg>

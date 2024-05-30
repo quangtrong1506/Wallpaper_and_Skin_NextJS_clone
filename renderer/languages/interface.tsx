@@ -51,6 +51,8 @@ interface _INotification {
         application_path_cannot_be_empty: string;
         max_length: string;
         min_length: string;
+        video_not_found: string;
+        no_internet: string;
     };
     success: {
         upload_video_completed: string;

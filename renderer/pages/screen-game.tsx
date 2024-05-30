@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ListApp from '../Components/Game/ListApp';
 import AIChat from '../Components/Game/Screen/AIChat';
 import BottomChat from '../Components/Game/Screen/BottomChat';
 import Day from '../Components/Game/Screen/Day';
-import FullTime from '../Components/Game/Screen/FullTime';
+import LucGiacNho from '../Components/Game/Screen/LucGiacNho';
 import Time from '../Components/Game/Screen/Time';
-import ButtonBottomRightOnly from '../Components/Shared/Game/ButtonBottomRightOnly';
 import ButtonLeft from '../Components/Shared/Game/ButtonLeft';
 import UserName from '../Components/Shared/Game/UserName';
 
@@ -13,17 +12,24 @@ function ScreenGamePage() {
     const [scale, setScale] = useState<number>(0);
     const [showChat, setShowChat] = useState<boolean>(false);
     const [showApps, setShowApps] = useState<boolean>(false);
+    const videoRef = useRef<HTMLVideoElement>();
+
     useEffect(() => {
         const reSize = () => {
             let { clientWidth, clientHeight } = document.body;
             setScale(clientWidth / 1920);
         };
         reSize();
+
+        setTimeout(() => {
+            if (videoRef.current.paused) videoRef.current?.play();
+        }, 10);
         window.addEventListener('resize', reSize);
         return () => {
             window.removeEventListener('resize', reSize);
         };
     }, []);
+
     return (
         <div className="relative overflow-hidden h-screen w-screen bg-[black]">
             <div
@@ -58,16 +64,16 @@ function ScreenGamePage() {
                     }}
                 >
                     <UserName scale={scale} />
-                    <video id="video-bg" className="object-contain h-full w-full" muted autoPlay loop src="/videos/hk-3.mp4"></video>
+                    <video id="video-bg" ref={videoRef} className="object-contain h-full w-full" muted autoPlay loop src="/videos/hk-3.mp4"></video>
                     {/* <img src="/images/abc.png" alt="" /> */}
                     <Time scale={scale} />
                     <Day scale={scale} />
-                    <FullTime scale={scale} />
+                    {/* <FullTime scale={scale} /> */}
                 </div>
                 {!showChat && (
                     <>
                         {/* <RightButton scale={scale} listEvent={{ setApps: setShowApps }} /> */}
-                        <ButtonBottomRightOnly scale={scale} />
+                        {/* <ButtonBottomRightOnly scale={scale} /> */}
 
                         <div
                             className="fixed w-0 h-0 left-[2vw] bottom-[2vw]"
@@ -99,11 +105,20 @@ function ScreenGamePage() {
                     </div>
                 )}
             </div>
-            {/* {!showChat && (
+            {!showChat && !showApps && (
                 <>
-                    <RightButton scale={scale} listEvent={{ setApps: setShowApps }} />
+                    <div className="absolute right-[2vw] bottom-[2vw]" style={{ scale: scale.toString() }}>
+                        <div
+                            className="w-[110px] h-[110px] cursor-pointer"
+                            onClick={() => {
+                                setShowApps(true);
+                            }}
+                        >
+                            <LucGiacNho icon={6} text="" textAlign="left"></LucGiacNho>
+                        </div>
+                    </div>
                 </>
-            )} */}
+            )}
             <div
                 className="absolute top-0 bottom-0 right-0 bg-[rgba(0,0,0,0.7)] w-[45%] "
                 style={{
@@ -113,6 +128,9 @@ function ScreenGamePage() {
             >
                 <ListApp />
             </div>
+            {/* <div className="absolute right-[200px] bottom-0 z-50 w-60">
+                <LucGiacLon text="Ứng dụng" type="box" />
+            </div> */}
         </div>
     );
 }

@@ -1,3 +1,4 @@
 {
-    "cSpell.words": ["cuối", "Đừng", "hàng", "riêng", "vượt"]
+    "cSpell.words": ["cuối", "Đừng", "hàng", "riêng", "vượt"],
+    "conventionalCommits.scopes": ["Component"]
 }

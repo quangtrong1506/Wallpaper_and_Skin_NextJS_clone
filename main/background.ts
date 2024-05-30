@@ -1,10 +1,12 @@
-import { Menu, Tray, app, ipcMain, screen } from 'electron';
+import { Menu, Tray, app, ipcMain, screen, shell } from 'electron';
 import serve from 'electron-serve';
 import path from 'path';
+import createLogger from 'progress-estimator';
+import youtubeDl from 'youtube-dl-exec';
 import { isProd } from './helpers';
-import handleFile from './helpers/utils/files';
+import handleFile, { getListImages, getListVideos, userPath } from './helpers/utils/files';
 import { BG_WINDOW } from './windows/bg-window';
-//
+
 const WINDOWS = {
     backgrounds: [],
 };
@@ -20,33 +22,20 @@ if (isProd) {
 (async () => {
     await app.whenReady();
     let screens = screen.getAllDisplays();
-    let win = await BG_WINDOW({
-        name: '0',
-        options: {
-            x: screens[0].bounds.x,
-            y: screens[0].bounds.y,
-        },
-        type: 'game',
-    });
-    WINDOWS.backgrounds.push(win);
-    // screen.on('display-metrics-changed', function (ev, display) {
-    //     console.log(display);
-    // });
     console.log(screens);
-    // let id = 1;
-    // for await (const scr of screens) {
-    //     let win = await BG_WINDOW({
-    //         id: id.toString(),
-    //         name: "background-window-" + id,
-    //         options: {
-    //             x: scr.bounds.x,
-    //             y: scr.bounds.y,
-    //         },
-    //     });
-    //     WINDOWS.backgrounds.push(win);
-    //     id++;
-    // }
-
+    let count = 1;
+    for await (const scr of screens) {
+        let win = await BG_WINDOW({
+            name: 'background-window-' + count,
+            options: {
+                x: scr.bounds.x,
+                y: scr.bounds.y,
+            },
+            type: count == screens.length ? 'game' : 'default',
+        });
+        WINDOWS.backgrounds.push(win);
+        count++;
+    }
     const tray = new Tray(isProd ? path.join(__dirname, '../../tray.png') : path.join(__dirname, '../resources/icon.ico'));
     tray.setToolTip('Wallpaper and Skins');
     const TRAY_ITEMS = [
@@ -74,17 +63,6 @@ if (isProd) {
     ];
     const contextMenu = Menu.buildFromTemplate(TRAY_ITEMS);
     tray.setContextMenu(contextMenu);
-    // setInterval(function () {
-    //     let mousePos = screen.getCursorScreenPoint();
-    //     console.log(mousePos);
-    // }, 0);
-    // let mousePos = screen.getCursorScreenPoint();
-    // console.log(mousePos);
-    // let mainScreen = screen.getPrimaryDisplay();
-    // let screens = screen.getAllDisplays();
-
-    // let apps = await fetchInstalledSoftware.getAllInstalledSoftware();
-    // console.log("apps:", apps);
 })();
 const sendLogToBg = (message: string) => {
     WINDOWS.backgrounds[0]?.webContents.send(
@@ -103,10 +81,10 @@ ipcMain.on('message', async (_event, arg) => {
     let obj = JSON.parse(arg);
     switch (obj.type) {
         case 'save-image':
-            handleFile.saveImage(obj.data, obj.data?.name);
+            handleFile.saveImage(obj.data);
             break;
         case 'destroy-image':
-            handleFile.removeImageById(obj.data);
+            handleFile.removeImageByName(obj.data);
             break;
         case 'save-video':
             let data = await handleFile.saveVideo(obj.data);
@@ -117,6 +95,84 @@ ipcMain.on('message', async (_event, arg) => {
             break;
         case 'exit-app':
             app.quit();
+            break;
+        case 'open-app':
+            shell.openExternal(path.join(obj.data));
+
+            break;
+        case 'loaded':
+            let images = await getListImages();
+            let videos = await getListVideos();
+            WINDOWS.backgrounds.forEach((background) => {
+                background.webContents.send(
+                    'main-to-window',
+                    JSON.stringify({
+                        channel: 'path',
+                        data: { images, videos, userPath: app.getPath('userData').replace(' (development)', '') },
+                    })
+                );
+                background.webContents.send(
+                    'main-to-window',
+                    JSON.stringify({
+                        channel: 'id',
+                        data: background.id,
+                    })
+                );
+            });
+            break;
+        case 'create-app':
+            WINDOWS.backgrounds.forEach((background) => {
+                setTimeout(() => {
+                    obj.data.id != background.id &&
+                        background.webContents.send(
+                            'main-to-window',
+                            JSON.stringify({
+                                channel: 'new-app',
+                                data: {
+                                    id: background.id,
+                                    item: obj.data.item,
+                                },
+                            })
+                        );
+                }, 1000);
+            });
+            break;
+        case 'update-app':
+            WINDOWS.backgrounds.forEach((background) => {
+                setTimeout(() => {
+                    obj.data.id != background.id &&
+                        background.webContents.send(
+                            'main-to-window',
+                            JSON.stringify({
+                                channel: 'update-app',
+                                data: {
+                                    id: background.id,
+                                    item: obj.data.item,
+                                },
+                            })
+                        );
+                }, 1000);
+            });
+            break;
+        case 'destroy-app':
+            WINDOWS.backgrounds.forEach((background) => {
+                setTimeout(() => {
+                    obj.data.id != background.id &&
+                        background.webContents.send(
+                            'main-to-window',
+                            JSON.stringify({
+                                channel: 'destroy-app',
+                                data: {
+                                    id: background.id,
+                                    itemID: obj.data.data.id,
+                                },
+                            })
+                        );
+                }, 1000);
+            });
+            break;
+        case 'download-video':
+            downloadVideo(obj.data.videoID, obj.data.name);
             break;
         default:
             break;
@@ -131,3 +187,66 @@ const sendMessageToBackground = (channel: string, data) => {
         })
     );
 };
+
+const downloadVideo = async (videoID: string, name: string = 'unknown') => {
+    try {
+        // Tạo đường dẫn đầy đủ cho file đầu ra dựa trên URL và thư mục đích
+        const outputPath = path.resolve(userPath, 'assets/videos/', name + '.mp4');
+        // Gọi youtube-dl-exec để tải video
+        const promise = youtubeDl(`https://youtu.be/${videoID}`, {
+            output: outputPath,
+            format: 'bestvideo[ext=mp4]',
+        });
+        const render = (string) => {
+            // Obtaining:   69%                 5.1s, estimated 7.4s
+            const process = parseInt((string?.match(/([\d][\d]%|[\d]%)/)?.[0] ?? '100%').replace('%', ''));
+            const totalTime = parseFloat(string?.match(/(\d.\d)/)?.[0]);
+            const estimatedTime = parseFloat(string?.match(/(\d.\d)/g)?.[1]);
+            const timeRemaining = estimatedTime - totalTime < 0 ? 0 : estimatedTime;
+            console.log(process + '%');
+            WINDOWS.backgrounds.forEach((element) => {
+                element.webContents.send(
+                    'main-to-window',
+                    JSON.stringify({
+                        channel: 'video-processing',
+                        data: {
+                            id: name,
+                            videoID,
+                            process,
+                            totalTime,
+                            estimatedTime,
+                            timeRemaining,
+                        },
+                    })
+                );
+            });
+        };
+        render.clear = () => {
+            console.log('clear');
+        };
+        render.done = () => {
+            WINDOWS.backgrounds.forEach((element) => {
+                element.webContents.send(
+                    'main-to-window',
+                    JSON.stringify({
+                        channel: 'video-downloaded',
+                        data: {
+                            videoID,
+                            id: name,
+                        },
+                    })
+                );
+            });
+        };
+        const logger = createLogger({
+            logFunction: render,
+        });
+        await logger(promise, '', {
+            estimate: 1000,
+        });
+        // console.log(result.match(/([\d][\d]%|[\d]%)/)[0]);
+    } catch (error) {
+        console.error('An error occurred while loading the video:', error);
+    }
+};
+//

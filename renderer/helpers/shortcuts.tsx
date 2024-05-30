@@ -1,12 +1,12 @@
-import { PATH, SIZE } from "./constant";
-import { IShortcuts, ISize } from "./interface";
+import { PATH, SIZE } from './constant';
+import { IShortcuts, ISize } from './interface';
 export const sortShortcuts = (shortcuts: IShortcuts, options?) => {
     let shortcutItems = [...shortcuts.items];
-    let rowCount = -1;
+    let rowCount = 1;
     if (shortcuts.isLoading) return;
-    if (shortcuts.short_by === "AZ" && shortcuts.short_by_grid) shortcutItems.sort((a, b) => a.title.localeCompare(b.title));
-    else if (shortcuts.short_by === "ZA" && shortcuts.short_by_grid) shortcutItems.sort((a, b) => b.title.localeCompare(a.title));
-    const height = options?.height || document.querySelector(".main").clientHeight;
+    if (shortcuts.short_by === 'AZ' && shortcuts.short_by_grid) shortcutItems.sort((a, b) => a.title.localeCompare(b.title));
+    else if (shortcuts.short_by === 'ZA' && shortcuts.short_by_grid) shortcutItems.sort((a, b) => b.title.localeCompare(a.title));
+    const height = options?.height || document.querySelector('.main').clientHeight;
     let col = 1,
         row = 1;
     const textHeight = Math.floor(SIZE[shortcuts.size].fontSize * 3),
@@ -20,12 +20,12 @@ export const sortShortcuts = (shortcuts: IShortcuts, options?) => {
             x = (col - 1) * width + (col - 1) * space;
             y = (row - 1) * width + space + (row - 1) * textHeight;
             if (y + width + textHeight > height) {
-                rowCount = col == 1 && rowCount == -1 ? row - 1 : rowCount;
                 col++;
                 row = 1;
                 y = space;
                 x = x + width + space;
             }
+            if (rowCount < row) rowCount = row;
             element.x = x;
             element.y = y;
         }
@@ -49,5 +49,5 @@ export const getSizeOfShortcutItem = (size: ISize) => {
 };
 
 export const getImagePath = (userPath: string, imageId: string): string => {
-    return userPath + PATH.absoluteImageShortcut + "/" + imageId + ".png";
+    return userPath + PATH.absoluteImageShortcut + '/' + imageId;
 };

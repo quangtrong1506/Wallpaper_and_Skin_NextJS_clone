@@ -1,19 +1,19 @@
-"use client";
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IPath } from "../../../helpers/interface";
+'use client';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { IPath } from '../../../helpers/interface';
 const initialState: IPath = {
-    userPath: "",
+    userPath: '',
     images: [],
     videos: [],
 };
 export const path = createSlice({
-    name: "path",
+    name: 'path',
     initialState,
     reducers: {
         setPathInit: (_state, action: PayloadAction<IPath>) => {
             return action.payload;
         },
-        addVideo: (state, action: PayloadAction<{ id: string; path: string }>) => {
+        addVideo: (state, action: PayloadAction<{ id: string; path: string; thumbnail?: string }>) => {
             let videos = [...state.videos];
             videos.push(action.payload);
             return { ...state, videos };

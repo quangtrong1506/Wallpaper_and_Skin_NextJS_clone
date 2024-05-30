@@ -1,17 +1,17 @@
-"use client";
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { SHORTCUT_SORT_BY, SIZE } from "../../../helpers/constant";
-import { IShortcutItem, IShortcuts } from "../../../helpers/interface";
+'use client';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { SHORTCUT_SORT_BY, SIZE } from '../../../helpers/constant';
+import { IShortcutItem, IShortcuts } from '../../../helpers/interface';
 const initialState: IShortcuts = {
     items: [],
-    size: "sm",
-    short_by: "AZ",
+    size: 'sm',
+    short_by: 'AZ',
     short_by_grid: true,
     isLoading: true,
 };
 
 export const shortcuts = createSlice({
-    name: "shortcuts",
+    name: 'shortcuts',
     initialState,
     reducers: {
         setInitShortcut: (state, action: PayloadAction<IShortcuts>) => {
@@ -42,7 +42,6 @@ export const shortcuts = createSlice({
             state,
             action: PayloadAction<{
                 id: string;
-                item: IShortcutItem;
             }>
         ) => {
             let list: Array<IShortcutItem> = [...state.items];

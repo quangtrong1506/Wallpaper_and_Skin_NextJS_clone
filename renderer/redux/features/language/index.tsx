@@ -1,10 +1,10 @@
-"use client";
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { getText } from "../../../languages/language";
-import { vi } from "../../../languages/vi";
+'use client';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { getText } from '../../../languages/language';
+import { vi } from '../../../languages/vi';
 
 export const language = createSlice({
-    name: "language",
+    name: 'language',
     initialState: vi,
     reducers: {
         setText: (state, action: PayloadAction<{ code: string }>) => {

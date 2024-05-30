@@ -1,26 +1,31 @@
-import { memo, useEffect, useRef } from "react";
-import { useAppSelector } from "../../redux/store";
+import { useEffect, useRef } from 'react';
+import { useAppSelector } from '../../redux/store';
 interface IProps {
+    isShowMenu?: boolean;
     setMenu?: (any) => void;
 }
 function Background(props: IProps) {
     const BACKGROUND = useAppSelector((state) => state.backgroundReducer);
     const videoRef = useRef<HTMLVideoElement>();
     const handleMouseDown: (MouseEvent) => void = (e: MouseEvent) => {
-        let { clientHeight, clientWidth } = document.querySelector(".main");
-        let x = clientWidth - e.clientX < 185 ? clientWidth - 185 : e.clientX;
-        let y = clientHeight - e.clientY < 205 ? clientHeight - 205 : e.clientY;
+        let { clientHeight, clientWidth } = document.querySelector('.main');
+        let minW = clientWidth < 1024 ? 185 : clientWidth < 1280 ? 225 : 285;
+        let minH = clientWidth < 1024 ? 190 : clientWidth < 1280 ? 225 : 285;
+        let x = clientWidth - e.clientX < minW ? clientWidth - minW : e.clientX;
+        let y = clientHeight - e.clientY < minH ? clientHeight - minH : e.clientY;
         props.setMenu({ x, y, isShow: e.button === 2 });
     };
     const mouseLeaveEvent = () => {
-        props.setMenu((prev) => ({ ...prev, isShow: false }));
+        if (props.isShowMenu) {
+            props.setMenu((prev) => ({ ...prev, isShow: false }));
+        }
     };
     useEffect(() => {
-        document.addEventListener("mouseleave", mouseLeaveEvent);
+        document.addEventListener('mouseleave', mouseLeaveEvent);
         return () => {
-            document.removeEventListener("mouseleave", mouseLeaveEvent);
+            document.removeEventListener('mouseleave', mouseLeaveEvent);
         };
-    }, []);
+    }, [props.isShowMenu]);
     useEffect(() => {
         setTimeout(() => {
             if (BACKGROUND.isLoading) return;
@@ -34,4 +39,4 @@ function Background(props: IProps) {
         </div>
     );
 }
-export default memo(Background);
+export default Background;

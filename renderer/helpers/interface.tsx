@@ -1,11 +1,11 @@
-import { SHORTCUT_SORT_BY, SIZE } from "./constant";
+import { SHORTCUT_SORT_BY, SIZE } from './constant';
 
 export interface IShortcutItem {
     id: string;
     x?: number;
     y?: number;
     title: string;
-    iconId: string;
+    icon: string;
     path: string;
     size?: keyof typeof SIZE;
     isCustom?: boolean;

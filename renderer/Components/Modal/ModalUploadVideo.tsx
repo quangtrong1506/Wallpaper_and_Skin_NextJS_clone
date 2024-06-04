@@ -41,7 +41,7 @@ function ModalUploadVideo({ setIsShowModal, setVideos, setVideoDownloading }: IP
     function displayPreview(file) {
         fileUpload.current = file;
         if (!file) return;
-        if (file.type.match('video')) setLinkDisplayVideo(URL.createObjectURL(file));
+        if (file.type?.match('video')) setLinkDisplayVideo(URL.createObjectURL(file));
         else setLinkDisplayVideo('');
     }
     useEffect(() => {
@@ -56,7 +56,7 @@ function ModalUploadVideo({ setIsShowModal, setVideos, setVideoDownloading }: IP
                     setVideos((prev) => [...prev, _data.data]);
                     Swal.fire('', TEXT.notification.success.upload_video_completed, 'success');
                     dispatch(addVideo(_data.data));
-                    // setIsShowModal(false);
+                    setIsShowModal(false);
                     break;
                 default:
                     break;
@@ -150,9 +150,9 @@ function ModalUploadVideo({ setIsShowModal, setVideos, setVideoDownloading }: IP
                                 onChange={(e) => {
                                     let link = e.target.value;
                                     let id = '';
-                                    if (link.match(/\?v=/i)) id = link.split('?v=')[1].split('&')[0];
-                                    if (link.match(/youtu.be\//)) id = link.split('youtu.be/')[1].split('?')[0];
-                                    if (link.match(/embed\//)) id = link.split('embed/')[1].split('?')[0];
+                                    if (link?.match(/\?v=/i)) id = link.split('?v=')[1].split('&')[0];
+                                    if (link?.match(/youtu.be\//)) id = link.split('youtu.be/')[1].split('?')[0];
+                                    if (link?.match(/embed\//)) id = link.split('embed/')[1].split('?')[0];
                                     setYoutubeId(id);
                                 }}
                             />
@@ -161,6 +161,7 @@ function ModalUploadVideo({ setIsShowModal, setVideos, setVideoDownloading }: IP
                         {youtubeId && (
                             <div className="w-[300px] lg:w-full">
                                 <iframe
+                                    referrerPolicy="origin"
                                     className="w-full lg:min-h-[320px] xl:min-h-[420px]"
                                     src={`https://www.youtube.com/embed/${youtubeId}`}
                                     title="YouTube video player"

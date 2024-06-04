@@ -101,7 +101,7 @@ function ModalShortcut({ id, setIsShow }: _IProps) {
                     <div className="w-4/12 relative group">
                         <div className="group-hover:blur-sm w-full justify-center flex ">
                             <div className="w-11/12 overflow-hidden flex items-center content-center border h-[180px] lg:h-[270px] xl:[h-380px]">
-                                <img className="w-full" src={image.url} alt={image.url} />
+                                <img className="w-full h-full object-contain" src={image.url} alt={image.url} />
                             </div>
                         </div>
                         <div className="absolute top-0 left-0 right-0 h-[180px] lg:h-[270px] xl:[h-380px] z-10 hidden justify-center items-center group-hover:flex flex-col">

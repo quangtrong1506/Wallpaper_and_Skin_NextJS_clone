@@ -6,7 +6,6 @@ import youtubeDl from 'youtube-dl-exec';
 import { isProd } from './helpers';
 import handleFile, { getListImages, getListVideos, userPath } from './helpers/utils/files';
 import { BG_WINDOW } from './windows/bg-window';
-
 const WINDOWS = {
     backgrounds: [],
 };
@@ -18,6 +17,10 @@ if (isProd) {
 } else {
     app.setPath('userData', `${app.getPath('userData')} (development)`);
 }
+app.requestSingleInstanceLock();
+app.on('second-instance', () => {
+    app.quit();
+});
 
 (async () => {
     await app.whenReady();
@@ -64,6 +67,7 @@ if (isProd) {
     const contextMenu = Menu.buildFromTemplate(TRAY_ITEMS);
     tray.setContextMenu(contextMenu);
 })();
+
 const sendLogToBg = (message: string) => {
     WINDOWS.backgrounds[0]?.webContents.send(
         'main-to-window',
@@ -179,23 +183,26 @@ ipcMain.on('message', async (_event, arg) => {
     }
 });
 const sendMessageToBackground = (channel: string, data) => {
-    WINDOWS.backgrounds[0]?.webContents.send(
-        'main-to-window',
-        JSON.stringify({
-            channel,
-            data,
-        })
+    WINDOWS.backgrounds.forEach((background) =>
+        background.webContents.send(
+            'main-to-window',
+            JSON.stringify({
+                channel,
+                data,
+            })
+        )
     );
 };
 
 const downloadVideo = async (videoID: string, name: string = 'unknown') => {
     try {
         // Tạo đường dẫn đầy đủ cho file đầu ra dựa trên URL và thư mục đích
-        const outputPath = path.resolve(userPath, 'assets/videos/', name + '.mp4');
+        const outputPath = path.join(userPath, `/assets/videos/${name}.mp4`);
         // Gọi youtube-dl-exec để tải video
         const promise = youtubeDl(`https://youtu.be/${videoID}`, {
             output: outputPath,
             format: 'bestvideo[ext=mp4]',
+            verbose: true,
         });
         const render = (string) => {
             // Obtaining:   69%                 5.1s, estimated 7.4s
@@ -238,6 +245,7 @@ const downloadVideo = async (videoID: string, name: string = 'unknown') => {
                 );
             });
         };
+
         const logger = createLogger({
             logFunction: render,
         });
@@ -247,6 +255,6 @@ const downloadVideo = async (videoID: string, name: string = 'unknown') => {
         // console.log(result.match(/([\d][\d]%|[\d]%)/)[0]);
     } catch (error) {
         console.error('An error occurred while loading the video:', error);
+        sendLogToBg('An error occurred while loading the video:' + error);
     }
 };
-//

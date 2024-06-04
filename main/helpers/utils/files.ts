@@ -126,7 +126,7 @@ const ensureDirectoryExists = async (directoryPath: string) => {
 // Retrieves a list of available shortcut images.
 const getListImages = (): string[] => {
     try {
-        return fse.readdirSync(path.join(electron.app.getAppPath(), 'renderer/public/images/shortcuts/'));
+        return isProd ? fse.readdirSync(path.join(__dirname, '/images/shortcuts/')) : fse.readdirSync(path.join(electron.app.getAppPath(), 'renderer/public/images/shortcuts/'));
     } catch (error) {
         console.error(error);
         return [];

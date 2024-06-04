@@ -18,6 +18,7 @@ function SelectImage({ setImageSelect, setIsShow }: { setImageSelect?: ({ type, 
                 }))
             );
         }
+        // else sendMessageToServer('loaded');
     }, [_PATH.images]);
     useEffect(() => {
         if (page > 0) {
@@ -57,7 +58,7 @@ function SelectImage({ setImageSelect, setIsShow }: { setImageSelect?: ({ type, 
                             className="w-[80px] h-[80px] lg:w-[118px] lg:h-[118px] xl:w-[150px]
                             xl:h-[150px] m-1 border overflow-hidden flex justify-center align-middle items-center hover:bg-gray-200 rounded select-none"
                             onClick={() => {
-                                setImageSelect?.({ url: image.url, type: image.url.match('http') ? 'link' : 'file' });
+                                setImageSelect?.({ url: image.url, type: image.url?.match('http') ? 'link' : 'file' });
                                 setIsShow && setIsShow(false);
                             }}
                         >

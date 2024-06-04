@@ -23,7 +23,8 @@ function ScreenGamePage() {
 
         setTimeout(() => {
             if (videoRef.current.paused) videoRef.current?.play();
-        }, 10);
+        }, 100);
+
         window.addEventListener('resize', reSize);
         return () => {
             window.removeEventListener('resize', reSize);

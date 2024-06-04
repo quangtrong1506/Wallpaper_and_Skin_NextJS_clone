@@ -16,7 +16,7 @@ interface Props {
     setMenu?: (any) => any;
 }
 export const getUrlImage = (data, userPath): string => {
-    if (data.icon.match(/\/images\//g)) return data.icon;
+    if (data.icon?.match(/\/images\//g)) return data.icon;
     return data.base64Icon ? data.base64Icon : userPath + PATH.absoluteImageShortcut + '/' + data.icon;
 };
 function Shortcut(props: Props) {

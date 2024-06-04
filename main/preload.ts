@@ -17,6 +17,7 @@ handler.on('main-to-window', (args: string) => {
         channel: string;
         data: unknown;
     } = JSON.parse(args);
+    console.log(_data);
     window.postMessage(
         {
             channel: _data.channel,

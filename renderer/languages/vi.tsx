@@ -77,4 +77,12 @@ export const vi: ILanguage = {
             app_path: 'Đường dẫn ứng dụng',
         },
     },
+    label: {
+        language: 'Ngôn ngữ',
+        screen: 'Màn hình',
+    },
+    current_language: {
+        code: 'vi-VN',
+        label: 'Tiếng Việt',
+    },
 };

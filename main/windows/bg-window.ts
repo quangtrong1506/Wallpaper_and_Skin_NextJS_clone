@@ -34,6 +34,7 @@ export const BG_WINDOW = async ({ name, type = 'default', options }: _IProps) =>
     mainWindow.minimize();
     mainWindow.maximize();
     mainWindow.setSkipTaskbar(true);
+    mainWindow.blur();
     if (isProd) {
         await mainWindow.loadURL(type == 'default' ? rootURL + '/home' : rootURL + '/screen-game');
     } else {

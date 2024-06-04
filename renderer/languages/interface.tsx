@@ -80,6 +80,10 @@ interface _IFormShortcut {
         app_path: string;
     };
 }
+interface _ILabel {
+    screen: string;
+    language: string;
+}
 export interface ILanguage {
     menu: _IMenu;
     menu_language: _IMenuLanguages;
@@ -89,4 +93,9 @@ export interface ILanguage {
     title: _ITitle;
     tooltip: _ITooltip;
     form_shortcut: _IFormShortcut;
+    label: _ILabel;
+    current_language: {
+        code: string;
+        label: string;
+    };
 }

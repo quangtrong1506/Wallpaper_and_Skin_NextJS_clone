@@ -80,7 +80,14 @@ export default function Menu({
                 >
                     {TEXT.menu.create_shortcut}
                 </li>
-                <li className="cursor-pointer hover:bg-gray-200 px-3 py-[2px] xl:py-[6px] text-xl lg:text-2xl max-xl:text-base ">{TEXT.menu.settings}</li>
+                <li
+                    className="cursor-pointer hover:bg-gray-200 px-3 py-[2px] xl:py-[6px] text-xl lg:text-2xl max-xl:text-base "
+                    onClick={() => {
+                        sendMessageToServer('open-settings', true);
+                    }}
+                >
+                    {TEXT.menu.settings}
+                </li>
                 <li
                     className="cursor-pointer hover:bg-gray-200 px-3 py-[2px] xl:py-[6px] text-xl lg:text-2xl max-xl:text-base"
                     onClick={() => {

@@ -5,9 +5,11 @@ import createLogger from 'progress-estimator';
 import youtubeDl from 'youtube-dl-exec';
 import { isProd } from './helpers';
 import handleFile, { getListImages, getListVideos, userPath } from './helpers/utils/files';
+import { BG_Settings } from './windows/bg-settings';
 import { BG_WINDOW } from './windows/bg-window';
 const WINDOWS = {
     backgrounds: [],
+    settings: null,
 };
 if (isProd) {
     serve({ directory: 'app' });
@@ -178,6 +180,36 @@ ipcMain.on('message', async (_event, arg) => {
         case 'download-video':
             downloadVideo(obj.data.videoID, obj.data.name);
             break;
+        case 'open-settings':
+            if (WINDOWS.settings) {
+                WINDOWS.settings.focus();
+                WINDOWS.settings.on('close', () => {
+                    WINDOWS.settings = null;
+                });
+            } else {
+                WINDOWS.settings = await BG_Settings();
+            }
+            break;
+        case 'destroy-settings':
+            if (WINDOWS.settings) {
+                WINDOWS.settings.close();
+                WINDOWS.settings = null;
+            }
+            break;
+        case 'get-list-screens':
+            let screens = screen.getAllDisplays();
+            WINDOWS.settings.webContents.send(
+                'main-to-window',
+                JSON.stringify({
+                    channel: 'list-screens',
+                    data: screens,
+                })
+            );
+            break;
+        case 'save-settings':
+            console.log(obj.data);
+            break;
+
         default:
             break;
     }
